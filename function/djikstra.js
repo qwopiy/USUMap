@@ -54,13 +54,13 @@ function djikstra(jumlahTitik, titikAwal, graf){
     antrian.insert([[titikAwal], 0]);
 
     while(antrian.length != 0){
-        let jalurTempuh = antrian.heap[0][0];
-        let titikSekarang = jalurTempuh.slice(-1)[0];
+        let jalurSeluruhnya = antrian.heap[0][0];
+        let titikSekarang = jalurSeluruhnya.slice(-1)[0];
         let jarakSekarang = antrian.heap[0][1];
         antrian.extractMin();
         
         if(titikSekarang == titikTujuan){
-            return jalurTempuh;
+            return jalurSeluruhnya;
         }
         
         if(jarakSekarang > jarak[titikSekarang]){
@@ -72,7 +72,7 @@ function djikstra(jumlahTitik, titikAwal, graf){
             let jarakTempuh = tetangga[1];
             let jarakBaru = jarakSekarang + jarakTempuh;
             let jalurBerikut = [];
-            jalurBerikut.push(...jalurTempuh);
+            jalurBerikut.push(...jalurSeluruhnya);
             jalurBerikut.push(titikBerikut);
 
             if(jarakBaru < jarak[titikBerikut]){
