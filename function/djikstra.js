@@ -2,9 +2,9 @@ import { PriorityQueue } from "./binaryHeap.js";
 
 let graf = new Array();
 let jumlahTitik = 94;
-let titikAwal = 1;
-let titikTujuan = 33;
-let filter = [[1, 2], [2, 3], [2, 15], [3, 4], [4, 5], [5, 6], [17, 3]];
+let titikAwal = 2;
+let titikTujuan = 17;
+let filter = [[1, 2], [2, 3], [2, 15], [3, 4], [4, 5], [5, 6], [15, 30], [17, 3]];
 
 function provinsi(graf, filter){
     let arr = [
@@ -31,13 +31,12 @@ function provinsi(graf, filter){
     }
 
     for(let i = 0; i < 94; i++){
-        for(const tetangga of graf[i]){
-            let index = 0;
-            let jalurTutup = [i, tetangga[0]];
+        for(let j=0; j<graf[i].length; j++){
+            let jalurTutup = [i, graf[i][j][0]];
             if(filter.some(item => JSON.stringify(item) === JSON.stringify(jalurTutup))){ 
-                graf[i].splice(index, 1);
+                graf[i].splice(j, 1);
+                j--;
             }
-            index++;
         }
     }
 
