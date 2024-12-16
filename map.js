@@ -1,3 +1,6 @@
+import { Djikstra } from './function/djikstra.js';
+
+let djikstra = new Djikstra();
 let map = L.map('map', {
     center: [3.55800, 98.65900],
     zoom: 16
@@ -142,6 +145,7 @@ function road(arr){
 }
 
 let myLines = [];
-let array = [1, 2, 3, 4];
+let array = djikstra.djikstra(94, 2, 23);
 road(array);
 map.on('click', onMapClick);
+console.log(djikstra.djikstra(94, 2, 23));
