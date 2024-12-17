@@ -3,7 +3,10 @@ import { PriorityQueue } from "./binaryHeap.js";
 export class Djikstra {
     constructor() {
         this.graf = new Array();
-        this.filter = [[1, 2], [2, 15], [3, 4], [4, 5], [5, 6], [15,30], [17, 3]];
+        this.filter = [ [1, 2], [2, 15], [3, 4], 
+                        [4, 5], [5, 6], [15,30], 
+                        [17, 3], [19, 17], [21, 19], 
+                        [25, 21], [32, 25]];
         this.nodes(this.filter);
     }
     // let jumlahTitik = 94;
