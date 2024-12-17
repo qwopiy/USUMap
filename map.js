@@ -115,24 +115,13 @@ function onMapClick(e) {
     console.log(myLines);
     console.log("You clicked the map at " + e.latlng);
     lines.remove();
-
-    setTimeout(() => {
-        road(array);
-    }, 1000);
     // L.popup(e.latlng, {content: '<p>Hello world!<br />This is a nice popup.</p>'})
     // .openOn(map);
 }
 
-
-// variable garis dengan koordinat sebagai titik awal dan akhir
-// let myLines = [{
-//     "type": "LineString",
-//     "coordinates": [[98.660068, 3.56726], [98.660445, 3.556362]]
-// }]
-// L.geoJSON(myLines).addTo(map);
-
 let lines;
 function road(arr){
+    myLines = [];
     let length = arr.length;
     
     for (let i = 0; i < length-1; i++) {
@@ -145,8 +134,25 @@ function road(arr){
     lines = L.geoJSON(myLines).addTo(map);
 }
 
+let submit = document.getElementById('submit');
+let titikAwal = document.getElementById('titikAwal');
+let titikAkhir = document.getElementById('titikAkhir');
+
+submit.addEventListener('click', function(){
+    if (lines !== undefined) {
+        lines.remove();
+    }
+    let awal = titikAwal.value;
+    let akhir = titikAkhir.value;
+    console.log(awal, akhir);
+    let array = djikstra.djikstra(94, awal, akhir);
+    console.log(array);
+    setTimeout(() => {
+        road(array);
+    }, 1000);
+});
+
 let myLines = [];
-let array = djikstra.djikstra(94, 49, 12);
-road(array);
+// let array = djikstra.djikstra(94, 49, 12);
 map.on('click', onMapClick);
-console.log(djikstra.djikstra(94, 2, 23));
+

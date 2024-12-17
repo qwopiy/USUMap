@@ -27,11 +27,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="Titik Lokasi Awal" class="form-label">Titik Lokasi Awal</label> 
-                    <input type="text" placeholder="Titik Lokasi Awal" class="form-control">
+                    <input id="titikAwal" type="text" placeholder="Titik Lokasi Awal" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="Titik Lokasi Akhir" class="form-label">Titik Lokasi Akhir</label>
-                    <input type="text" placeholder="Titik Lokasi Akhir" class="form-control">
+                    <input id="titikAkhir" type="text" placeholder="Titik Lokasi Akhir" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="filter" class="form-label">Filter</label>
@@ -40,10 +40,11 @@
             </form>
           </div>
           <a href="index.html" class="btn btn-light">Kembali</a>
+          <button id="submit" class="btn btn-light" type="submit">Submit</button>
         </div>
     </div>
 
-    <script src="map.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="module" src="map.js"></script>
 </body>
 </html>
