@@ -70,8 +70,8 @@ const nodes = [
     [98.655392, 3.560225],  // 59
     [98.655918, 3.560179],  // 60
     [98.656115, 3.560189],  // 61
-    [98.657642, 3.560216],  // 62
-    [98.657642, 3.560216],  // 63
+    [98.658291, 3.560228],  // 62
+    [98.660340, 3.560220],  // 63
     [98.654618, 3.559312],  // 64
     [98.660126, 3.559780],  // 65
     [98.660341, 3.559761],  // 66
@@ -103,7 +103,42 @@ const nodes = [
     [98.658055, 3.556345],  // 92
     [98.660480, 3.556341],  // 93
 ];
-console.log(nodes);
+// console.log(nodes);
+
+const nodesMarker = {
+    1: "Pintu 4",
+    2: "Pintu 3",
+    3: "Pintu 2",
+    4: "Gerbang Fakultas Psikologi",
+    5: "Pintu 1",
+    8: "Fakultas Psikologi",
+    9: "Fakultas Kedokteran",
+    14: "Stadium Mini USU",
+    16: "Kantor Biro USU",
+    24: "Fakultas Keperawatan",
+    26: "Gelanggang Mahasiswa",
+    28: "Auditorium USU",
+    29: "Fakultas Kedokteran Gigi",
+    38: "Fakultas Teknik Kimia",
+    39: "Fasilkom-TI",
+    41: "Program Studi Teknik Industri USU",
+    44: "USU Press",                            // tambahan
+    46: "Laboratorium Beton Teknik Sipil Usu",
+    49: "Gedung Pancasila",
+    56: "Unit 4 FMIPA USU",
+    58: "Fakultas Farmasi",
+    64: "FMIPA USU",
+    65: "Fakultas Ilmu Budaya",
+    71: "Perpustakaan",
+    74: "Magister Kehutanan",
+    75: "Program Studi Manajemen Sumberdaya Perairan",
+    77: "Fakultas Ekonomi Dan Bisnis",
+    78: "Gedung Kuliah Bersama Haji Anif",
+    79: "Gedung Baru Fakultas Hukum",
+    80: "Fakultas Hukum",
+    86: "Fakultas Pertanian",
+    87: "Fakultas Ilmu Sosial Dan Ilmu Politik"
+};
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -111,18 +146,31 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // fungsi untuk klik map
-function onMapClick(e) {
-    console.log(myLines);
-    console.log("You clicked the map at " + e.latlng);
-    lines.remove();
-    // L.popup(e.latlng, {content: '<p>Hello world!<br />This is a nice popup.</p>'})
-    // .openOn(map);
-}
+// function onMapClick(e) {
+//     console.log(myLines);
+//     console.log("You clicked the map at " + e.latlng);
+//     lines.remove();
+//     // L.popup(e.latlng, {content: '<p>Hello world!<br />This is a nice popup.</p>'})
+//     // .openOn(map);
+// }
 
 let lines;
+let markers = [];
 function road(arr){
     myLines = [];
+    markers = [];
     let length = arr.length;
+    
+    markers[0] = L.marker(nodes[arr[0]].reverse(), {title: nodesMarker[arr[0]]});
+    markers[0].addTo(map);
+    markers[0].bindPopup(nodesMarker[arr[0]]);
+    nodes[arr[0]].reverse();
+
+
+    markers[length-1] = L.marker(nodes[arr[length-1]].reverse(), {title: nodesMarker[arr[length-1]]});
+    markers[length-1].addTo(map);
+    markers[length-1].bindPopup(nodesMarker[arr[length-1]]);
+    nodes[arr[length-1]].reverse();
     
     for (let i = 0; i < length-1; i++) {
         myLines.push({
@@ -132,6 +180,9 @@ function road(arr){
         console.log(nodes[arr[i]], nodes[arr[i+1]]);
     }
     lines = L.geoJSON(myLines).addTo(map);
+    console.log((nodes[arr[length-1]][1] + nodes[arr[0]][1])/2);
+    console.log((nodes[arr[length-1]][0] + nodes[arr[0]][0])/2);
+    map.panTo([(nodes[arr[length-1]][1] + nodes[arr[0]][1])/2, (nodes[arr[length-1]][0] + nodes[arr[0]][0])/2]);
 }
 
 let submit = document.getElementById('submit');
@@ -141,6 +192,9 @@ let titikAkhir = document.getElementById('titikAkhir');
 submit.addEventListener('click', function(){
     if (lines !== undefined) {
         lines.remove();
+        markers.forEach(marker => {
+            marker.remove();
+        });
     }
     let awal = titikAwal.value;
     let akhir = titikAkhir.value;
@@ -154,5 +208,5 @@ submit.addEventListener('click', function(){
 
 let myLines = [];
 // let array = djikstra.djikstra(94, 49, 12);
-map.on('click', onMapClick);
+// map.on('click', onMapClick);
 
