@@ -146,7 +146,7 @@ function road(arr){
 }
 
 let myLines = [];
-let array = djikstra.djikstra(94, 2, 23);
+let array = djikstra.djikstra(94, 49, 12);
 road(array);
 map.on('click', onMapClick);
 console.log(djikstra.djikstra(94, 2, 23));

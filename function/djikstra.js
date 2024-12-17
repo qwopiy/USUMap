@@ -3,7 +3,7 @@ import { PriorityQueue } from "./binaryHeap.js";
 export class Djikstra {
     constructor() {
         this.graf = new Array();
-        this.filter = [[1, 2], [2, 3], [2, 15], [3, 4], [4, 5], [5, 6], [17, 3]];
+        this.filter = [[1, 2], [2, 15], [3, 4], [4, 5], [5, 6], [15,30], [17, 3]];
         this.nodes(this.filter);
     }
     // let jumlahTitik = 94;
@@ -13,7 +13,7 @@ export class Djikstra {
     nodes(filter){
         let arr = [
             [1, 2, 293], [1, 13, 135], [2, 3, 160], [2, 15, 174], [3, 4, 19], [3, 17, 183], [4, 5, 261], [4, 7, 26], [5, 6, 59], [5, 9, 29],
-            [6, 10, 85], [7, 8, 78], [8, 11, 59], [9, 10, 23], [10, 12, 59], [11, 12, 193], [11, 18, 19], [12, 27, 244], [13, 14, 47], [13, 35, 431],
+            [6, 10, 85], [7, 8, 78], [8, 11, 59], [10, 12, 59], [11, 12, 193], [11, 18, 19], [12, 27, 244], [13, 14, 47], [13, 35, 431],
             [15, 16, 95], [15, 30, 313], [16, 17, 75], [17, 19, 38], [18, 20, 38], [19, 21, 86], [20, 22, 88], [21, 22, 102], [21, 25, 87], [22, 23, 21], 
             [23, 24, 45], [25, 32, 119], [26, 27, 23], [27, 34, 92], [28, 31, 51], [29, 33, 32], [30, 31, 83], [30, 37, 35], [31, 32, 63], [31, 38, 19],
             [32, 33, 101], [33, 34, 212], [33, 43, 119], [34, 40, 68], [35, 36, 191], [35, 53, 198], [36, 37, 134], [36, 41, 60], [37, 61, 302], [39, 40, 23], 
@@ -34,16 +34,13 @@ export class Djikstra {
             this.graf[arr[i][1]].push([arr[i][0], arr[i][2]]);
         }
 
-        let index = 0;
         for(let i = 0; i < 94; i++){
-            index = 0;
-            for(const tetangga of this.graf[i]){
-                let jalurTutup = [i, tetangga[0]];
+            for(let j=0; j<this.graf[i].length; j++){
+                let jalurTutup = [i, this.graf[i][j][0]];
                 if(filter.some(item => JSON.stringify(item) === JSON.stringify(jalurTutup))){ 
-                    this.graf[i].splice(index, 1);
-                    console.log("aaaaaaaaaaaaaaaaaaaaaaa");
+                    this.graf[i].splice(j, 1);
+                    j--;
                 }
-                index++;
             }
         }
 
