@@ -123,6 +123,7 @@ function onMapClick(e) {
     // .openOn(map);
 }
 
+
 // variable garis dengan koordinat sebagai titik awal dan akhir
 // let myLines = [{
 //     "type": "LineString",
