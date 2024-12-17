@@ -1,0 +1,52 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+main {
+  flex: 1;
+}
+
+.custom-navbar {
+  background-color: #006633;
+  color: white;
+  height: 60px;
+}
+
+.custom-navbar .navbar-brand {
+  color: white;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: limegreen;
+}
+
+.btn-mulai {
+  background-color: #006633;
+  color: #fff;
+}
+
+.btn-mulai:hover {
+  background-color: #038A47;
+  color: #fff;
+}
+
+footer {
+  background-color: #006633;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+footer p {
+  margin: 0;
+}
+
+.logo img {
+  max-width: 100px; 
+  height: auto; 
+}
