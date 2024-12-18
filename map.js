@@ -210,3 +210,20 @@ let myLines = [];
 // let array = djikstra.djikstra(94, 49, 12);
 // map.on('click', onMapClick);
 
+let option = [];
+
+for(let opsi in nodesMarker){
+    option[opsi] = document.createElement('option')
+    option[opsi].value = opsi;
+    option[opsi].innerHTML = nodesMarker[opsi];
+    titikAwal.appendChild(option[opsi]);
+    console.log(nodesMarker[opsi]);
+}
+
+for(let opsi in nodesMarker){
+    option[opsi] = document.createElement('option')
+    option[opsi].value = opsi;
+    option[opsi].innerHTML = nodesMarker[opsi];
+    titikAkhir.appendChild(option[opsi]); 
+    console.log(nodesMarker[opsi]);
+}
