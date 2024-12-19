@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contoh Overflow</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Gaya umum untuk kotak */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    margin: 20px;
+}
+
+.container {
+    width: 300px;
+    height: 100px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+    padding: 10px;
+    overflow: visible; /* Default */
+    background-color: #f9f9f9;
+}
+
+.container.hidden {
+    overflow: hidden;
+    background-color: #ffe4e1;
+}
+
+.container.scroll {
+    overflow: scroll;
+    background-color: #e0ffff;
+}
+
+.container.auto {
+    overflow: auto;
+    background-color: #e6e6fa;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Contoh Overflow</h1>
+
+    <div class="container visible">
+        <h2>Overflow: visible</h2>
+        <p>Konten ini akan meluap keluar dari kotak tanpa dipotong.</p>
+    </div>
+
+    <div class="container hidden">
+        <h2>Overflow: hidden</h2>
+        <p>Konten ini akan dipotong jika meluap dari kotak.</p>
+    </div>
+
+    <div class="container scroll">
+        <h2>Overflow: scroll</h2>
+        <p>Konten ini bisa digulir jika meluap dari kotak. Scrollbar akan selalu muncul.</p>
+    </div>
+
+    <div class="container auto">
+        <h2>Overflow: auto</h2>
+        <p>Konten ini akan menampilkan scrollbar hanya jika meluap dari kotak.</p>
+    </div>
+</body>
+</html>
+
