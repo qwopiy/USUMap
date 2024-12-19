@@ -3,17 +3,17 @@ import { PriorityQueue } from "./binaryHeap.js";
 export class Djikstra {
     constructor() {
         this.graf = new Array();
-        this.filter = [ [1, 2], [2, 15], [3, 4], 
-                        [4, 5], [5, 6], [15,30], 
-                        [17, 3], [19, 17], [21, 19], 
-                        [25, 21], [32, 25]];
-        this.nodes(this.filter);
+        // this.filter = [ [1, 2], [2, 15], [3, 4], 
+        //                 [4, 5], [5, 6], [15,30], 
+        //                 [17, 3], [19, 17], [21, 19], 
+        //                 [25, 21], [32, 25]];
+        // this.nodes(this.filter);
     }
     // let jumlahTitik = 94;
     // let titikAwal = 1;
     // let titikTujuan = 33;
 
-    nodes(filter){
+    nodes(filter, newFilter){
         let arr = [
             [1, 2, 293], [1, 13, 135], [2, 3, 160], [2, 15, 174], [3, 4, 19], [3, 17, 183], [4, 5, 261], [4, 7, 26], [5, 6, 59], [5, 9, 29],
             [6, 10, 85], [7, 8, 78], [8, 11, 59], [10, 12, 59], [11, 12, 193], [11, 18, 19], [12, 27, 244], [13, 14, 47], [13, 35, 431],
@@ -33,8 +33,12 @@ export class Djikstra {
         }
 
         for(let i = 0; i < arr.length; i++){
-            this.graf[arr[i][0]].push([arr[i][1], arr[i][2]]);
-            this.graf[arr[i][1]].push([arr[i][0], arr[i][2]]);
+            if(!newFilter.includes(arr[i][0]) && !newFilter.includes(arr[i][1])){
+                this.graf[arr[i][0]].push([arr[i][1], arr[i][2]]);
+                this.graf[arr[i][1]].push([arr[i][0], arr[i][2]]);
+                // console.log(i)
+            }
+            
         }
 
         for(let i = 0; i < 94; i++){
@@ -48,11 +52,21 @@ export class Djikstra {
         }
 
         // for(let i = 0; i < 94; i++){
-        //     console.log(graf[i]);
+        //     console.log(newFilter.includes(arr[i][0]))
+        //     // console.log(i);
+        //     console.log(arr[i][0]);
+        //     console.log(this.graf[arr[i][0]]);
+        //     console.log('');
         // }
     }
 
-    djikstra(jumlahTitik, titikAwal, titikTujuan){
+    djikstra(jumlahTitik, titikAwal, titikTujuan, newFilter){
+        let filter = [ [1, 2], [2, 15], [3, 4], 
+                        [4, 5], [5, 6], [15,30], 
+                        [17, 3], [19, 17], [21, 19], 
+                        [25, 21], [32, 25]];
+        this.nodes(filter, newFilter);
+
         let jarak = new Array(jumlahTitik).fill(Infinity);
         jarak[titikAwal] = 0;
 
@@ -61,6 +75,7 @@ export class Djikstra {
 
         while(antrian.length != 0){
             let jalurSeluruhnya = antrian.heap[0][0];
+            console.log(antrian.heap[0][0]);
             let titikSekarang = jalurSeluruhnya.slice(-1)[0];
             let jarakSekarang = antrian.heap[0][1];
             antrian.extractMin();
@@ -72,6 +87,10 @@ export class Djikstra {
             if(jarakSekarang > jarak[titikSekarang]){
                 continue;
             }
+
+            // if(this.graf[titikSekarang].length == 0){
+            //     return 0;
+            // }
             
             for(const tetangga of this.graf[titikSekarang]){
                 let titikBerikut = tetangga[0];
@@ -87,12 +106,15 @@ export class Djikstra {
                 }
             }
         }
-        return 'jalan tidak dapat dicapai';
+        return 0;
     }
 
     
     // console.log(djikstra(jumlahTitik, titikAwal, graf));
 }
+
+let temp = new Djikstra();
+console.log(temp.djikstra(94, 1, 33, [36]));
 
 
 
