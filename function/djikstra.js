@@ -79,7 +79,14 @@ export class Djikstra {
                 jalurSeluruhnya = antrian.heap[0][0];
             } catch (error) {
                 console.log(error);
+    
+                const p = document.createElement("p");
+                p.textContent = "Jalur tidak ditemukan";
+                p.style.color = "red"; 
+                document.body.appendChild(p);
+                
             }
+
             console.log(antrian.heap[0][0]);
             let titikSekarang = jalurSeluruhnya.slice(-1)[0];
             let jarakSekarang = antrian.heap[0][1];

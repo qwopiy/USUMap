@@ -59,6 +59,15 @@ body {
 }
 
 
+@media (max-width:1300px) {
+    body{
+        padding: 10px;
+    }
+    #map, .form-container {
+        max-width: 50%;
+        max-height: 80em;
+    }
+}
 @media (max-width: 768px) {
     body {
        padding: 10px;
