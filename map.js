@@ -193,7 +193,7 @@ function road(arr){
         // markers[i].setContent('<button id="filter" class="btn btn-light">Tutup jalan</button>')
         markers[i].addTo(map);
         // markers[i].bindPopup(nodesMarker[arr[i]]);
-        markers[i].bindPopup("<h5> Simpang ke " + i + "</h5>");
+        markers[i].bindPopup("<h5> Simpang " + arr[i] + "</h5>");
         nodes[arr[i]].reverse();
     }
     
@@ -245,7 +245,6 @@ submit.addEventListener('click', function(){
 });
 
 let myLines = [];
-let filter = [];
 let option = [];
 
 for(let opsi in nodesMarker){

@@ -79,11 +79,15 @@ export class Djikstra {
                 jalurSeluruhnya = antrian.heap[0][0];
             } catch (error) {
                 console.log(error);
-    
+
                 const p = document.createElement("p");
                 p.textContent = "Jalur tidak ditemukan";
                 p.style.color = "red"; 
-                document.body.appendChild(p);
+                // document.body.appendChild(p);
+                document.getElementById("error").appendChild(p);
+                if (document.getElementById("error").childElementCount > 1) {
+                    document.getElementById("error").removeChild(document.getElementById("error").firstElementChild);
+                }
                 
             }
 
