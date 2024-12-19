@@ -2,7 +2,7 @@ import { Djikstra } from './function/djikstra.js';
 
 let djikstra = new Djikstra();
 let map = L.map('map', {
-    center: [3.55800, 98.65900],
+    center: [3.56100, 98.65600],
     zoom: 16
 });
 
@@ -46,7 +46,7 @@ const nodes = [
     [98.653038, 3.562483],  // 35
     [98.654822, 3.562528],  // 36
     [98.656019, 3.562586],  // 37
-    [98.656019, 3.562586],  // 38
+    [98.656797, 3.562648],  // 38
     [98.659833, 3.562393],  // 39
     [98.660292, 3.562409],  // 40
     [98.654832, 3.561950],  // 41
@@ -158,11 +158,11 @@ let endIcon = L.icon({
     iconAnchor: [15, 38]
 });
 
-let roadBlock = L.icon({
-    iconUrl: 'asset/roadBlock.png',
-    iconSize: [20, 32],
-    iconAnchor: [15, 38]
-});
+//debug marker semua
+// for (let i = 1; i < nodes.length; i++) {
+//     L.marker(nodes[i].reverse(), {title: nodesMarker[i]}).addTo(map).bindPopup(nodesMarker[i]);
+//     nodes[i].reverse();
+// }
 
 let lines;
 let markers = [];
@@ -173,13 +173,13 @@ function road(arr){
     
     markers[0] = L.marker(nodes[arr[0]].reverse(), {icon: startIcon, title: nodesMarker[arr[0]]});
     markers[0].addTo(map);
-    markers[0].bindPopup(nodesMarker[arr[0]]);
+    markers[0].bindPopup("<h5>" + nodesMarker[arr[0]] + "</h5>");
     nodes[arr[0]].reverse();
 
 
     markers[length-1] = L.marker(nodes[arr[length-1]].reverse(), {icon: endIcon, title: nodesMarker[arr[length-1]]});
     markers[length-1].addTo(map);
-    markers[length-1].bindPopup(nodesMarker[arr[length-1]]);
+    markers[length-1].bindPopup("<h5>" + nodesMarker[arr[length-1]] + "</h5>");
     nodes[arr[length-1]].reverse();
     
     // marker tiap node
@@ -188,7 +188,7 @@ function road(arr){
         // markers[i].setContent('<button id="filter" class="btn btn-light">Tutup jalan</button>')
         markers[i].addTo(map);
         // markers[i].bindPopup(nodesMarker[arr[i]]);
-        markers[i].bindPopup('<button id="filter" class="btn btn-light">Tutup jalan</button>');
+        markers[i].bindPopup("<h5> Simpang ke " + i + "</h5>");
         nodes[arr[i]].reverse();
     }
     
@@ -220,14 +220,14 @@ submit.addEventListener('click', function(){
     let akhir = titikAkhir.value;
     console.log(awal, akhir);
     let array = djikstra.djikstra(94, awal, akhir, filter);
-    console.log(array);
+    // console.log(array);
     setTimeout(() => {
         road(array);
     }, 1000);
 });
 
 let myLines = [];
-let filter = [36];
+let filter = [];
 let option = [];
 
 for(let opsi in nodesMarker){
