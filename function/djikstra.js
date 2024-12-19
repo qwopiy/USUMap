@@ -119,7 +119,7 @@ export class Djikstra {
 }
 
 let temp = new Djikstra();
-console.log(temp.djikstra(94, 1, 33, [36]));
+// console.log(temp.djikstra(94, 1, 33, [36]));
 
 
 
