@@ -51,6 +51,14 @@ body {
     gap: 20px;
 }
 
+.tombol {
+    margin-top: 5em;
+    display: flex; 
+    justify-content:space-between; 
+    align-items: center; 
+}
+
+
 @media (max-width: 768px) {
     body {
        padding: 10px;
@@ -80,4 +88,7 @@ body {
     #map {
        height: 250px;
    }
+}
+.filterbtn{
+
 }
