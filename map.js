@@ -145,14 +145,24 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-// fungsi untuk klik map
-// function onMapClick(e) {
-//     console.log(myLines);
-//     console.log("You clicked the map at " + e.latlng);
-//     lines.remove();
-//     // L.popup(e.latlng, {content: '<p>Hello world!<br />This is a nice popup.</p>'})
-//     // .openOn(map);
-// }
+// marker logo
+let startIcon = L.icon({
+    iconUrl: 'asset/start.png',
+    iconSize: [30, 40],
+    iconAnchor: [15, 38]
+});
+
+let endIcon = L.icon({
+    iconUrl: 'asset/end.png',
+    iconSize: [30, 40],
+    iconAnchor: [15, 38]
+});
+
+let roadBlock = L.icon({
+    iconUrl: 'asset/roadBlock.png',
+    iconSize: [20, 32],
+    iconAnchor: [15, 38]
+});
 
 let lines;
 let markers = [];
@@ -161,16 +171,24 @@ function road(arr){
     markers = [];
     let length = arr.length;
     
-    markers[0] = L.marker(nodes[arr[0]].reverse(), {title: nodesMarker[arr[0]]});
+    markers[0] = L.marker(nodes[arr[0]].reverse(), {icon: startIcon, title: nodesMarker[arr[0]]});
     markers[0].addTo(map);
     markers[0].bindPopup(nodesMarker[arr[0]]);
     nodes[arr[0]].reverse();
 
 
-    markers[length-1] = L.marker(nodes[arr[length-1]].reverse(), {title: nodesMarker[arr[length-1]]});
+    markers[length-1] = L.marker(nodes[arr[length-1]].reverse(), {icon: endIcon, title: nodesMarker[arr[length-1]]});
     markers[length-1].addTo(map);
     markers[length-1].bindPopup(nodesMarker[arr[length-1]]);
     nodes[arr[length-1]].reverse();
+    
+    // marker tiap node
+    for (let i = 1; i < length-2; i++) {
+        markers[i] = L.circleMarker(nodes[arr[i]].reverse(), {color: "#FFAD00", fill: true, title: nodesMarker[arr[i]]});
+        markers[i].addTo(map);
+        markers[i].bindPopup(nodesMarker[arr[i]]);
+        nodes[arr[i]].reverse();
+    }
     
     for (let i = 0; i < length-1; i++) {
         myLines.push({
@@ -196,10 +214,11 @@ submit.addEventListener('click', function(){
             marker.remove();
         });
     }
-    let awal = titikAwal.value;
-    let akhir = titikAkhir.value;
-    console.log(awal, akhir);
-    let array = djikstra.djikstra(94, awal, akhir);
+    // let awal = titikAwal.value;
+    // let akhir = titikAkhir.value;
+    // console.log(awal, akhir);
+    // let array = djikstra.djikstra(94, awal, akhir);
+    let array = djikstra.djikstra(94, 1, 34);
     console.log(array);
     setTimeout(() => {
         road(array);
@@ -210,3 +229,27 @@ let myLines = [];
 // let array = djikstra.djikstra(94, 49, 12);
 // map.on('click', onMapClick);
 
+let option = [];
+
+for(let opsi in nodesMarker){
+    option[opsi] = document.createElement('option')
+    option[opsi].value = opsi;
+    option[opsi].innerHTML = nodesMarker[opsi];
+    titikAwal.appendChild(option[opsi]);
+    // console.log(nodesMarker[opsi]);
+}
+
+for(let opsi in nodesMarker){
+    option[opsi] = document.createElement('option')
+    option[opsi].value = opsi;
+    option[opsi].innerHTML = nodesMarker[opsi];
+    titikAkhir.appendChild(option[opsi]); 
+    // console.log(nodesMarker[opsi]);
+}
+const filter_btn = document.querySelector('#filter');
+
+
+filter_btn.addEventListener('click', (event) => {
+    console.log("halo");
+	event.preventDefault()
+});
