@@ -195,17 +195,19 @@ function road(arr){
             "type": "LineString",
             "coordinates": [nodes[arr[i]], nodes[arr[i+1]]]
         });
-        console.log(nodes[arr[i]], nodes[arr[i+1]]);
+        // console.log(nodes[arr[i]], nodes[arr[i+1]]);
     }
     lines = L.geoJSON(myLines).addTo(map);
-    console.log((nodes[arr[length-1]][1] + nodes[arr[0]][1])/2);
-    console.log((nodes[arr[length-1]][0] + nodes[arr[0]][0])/2);
+    // console.log((nodes[arr[length-1]][1] + nodes[arr[0]][1])/2);
+    // console.log((nodes[arr[length-1]][0] + nodes[arr[0]][0])/2);
     map.panTo([(nodes[arr[length-1]][1] + nodes[arr[0]][1])/2, (nodes[arr[length-1]][0] + nodes[arr[0]][0])/2]);
 }
 
 let submit = document.getElementById('submit');
 let titikAwal = document.getElementById('titikAwal');
 let titikAkhir = document.getElementById('titikAkhir');
+let tutupJalan =  document.getElementById('tutupJalan');
+let filter = new Array();
 
 submit.addEventListener('click', function(){
     if (lines !== undefined) {
@@ -214,12 +216,22 @@ submit.addEventListener('click', function(){
             marker.remove();
         });
     }
-    // let awal = titikAwal.value;
-    // let akhir = titikAkhir.value;
-    // console.log(awal, akhir);
-    // let array = djikstra.djikstra(94, awal, akhir);
-    let array = djikstra.djikstra(94, 1, 34);
-    console.log(array);
+
+    let awal = titikAwal.value;
+    let akhir = titikAkhir.value;
+
+    if(tutupJalan.value == ''){
+        filter = [];
+    }else{
+        filter = tutupJalan.value;
+        filter = filter.split(',');
+        filter = filter.map(Number);
+    }
+
+    console.log(awal, akhir, filter);
+    let array = djikstra.djikstra(94, awal, akhir, filter);
+    // let array = djikstra.djikstra(94, 1, 34, filter);
+    // console.log(array);
     setTimeout(() => {
         road(array);
     }, 1000);
@@ -246,10 +258,10 @@ for(let opsi in nodesMarker){
     titikAkhir.appendChild(option[opsi]); 
     // console.log(nodesMarker[opsi]);
 }
-const filter_btn = document.querySelector('#filter');
+// const filter_btn = document.querySelector('#filter');
 
 
-filter_btn.addEventListener('click', (event) => {
-    console.log("halo");
-	event.preventDefault()
-});
+// filter_btn.addEventListener('click', (event) => {
+//     console.log("halo");
+// 	event.preventDefault()
+// });
