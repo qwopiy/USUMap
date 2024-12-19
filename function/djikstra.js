@@ -75,7 +75,7 @@ export class Djikstra {
 
         while(antrian.length != 0){
             let jalurSeluruhnya = antrian.heap[0][0];
-            console.log(antrian.heap[0][0]);
+            // console.log(antrian.heap[0][0]);
             let titikSekarang = jalurSeluruhnya.slice(-1)[0];
             let jarakSekarang = antrian.heap[0][1];
             antrian.extractMin();
@@ -114,7 +114,7 @@ export class Djikstra {
 }
 
 let temp = new Djikstra();
-console.log(temp.djikstra(94, 1, 33, [36]));
+// console.log(temp.djikstra(94, 1, 33, [36]));
 
 
 
