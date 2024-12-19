@@ -183,10 +183,12 @@ function road(arr){
     nodes[arr[length-1]].reverse();
     
     // marker tiap node
-    for (let i = 1; i < length-2; i++) {
+    for (let i = 1; i < length-1; i++) {
         markers[i] = L.circleMarker(nodes[arr[i]].reverse(), {color: "#FFAD00", fill: true, title: nodesMarker[arr[i]]});
+        // markers[i].setContent('<button id="filter" class="btn btn-light">Tutup jalan</button>')
         markers[i].addTo(map);
-        markers[i].bindPopup(nodesMarker[arr[i]]);
+        // markers[i].bindPopup(nodesMarker[arr[i]]);
+        markers[i].bindPopup('<button id="filter" class="btn btn-light">Tutup jalan</button>');
         nodes[arr[i]].reverse();
     }
     
@@ -214,11 +216,10 @@ submit.addEventListener('click', function(){
             marker.remove();
         });
     }
-    // let awal = titikAwal.value;
-    // let akhir = titikAkhir.value;
-    // console.log(awal, akhir);
-    // let array = djikstra.djikstra(94, awal, akhir);
-    let array = djikstra.djikstra(94, 1, 34);
+    let awal = titikAwal.value;
+    let akhir = titikAkhir.value;
+    console.log(awal, akhir);
+    let array = djikstra.djikstra(94, awal, akhir, filter);
     console.log(array);
     setTimeout(() => {
         road(array);
@@ -226,6 +227,28 @@ submit.addEventListener('click', function(){
 });
 
 let myLines = [];
-// let array = djikstra.djikstra(94, 49, 12);
-// map.on('click', onMapClick);
+let filter = [36];
+let option = [];
 
+for(let opsi in nodesMarker){
+    option[opsi] = document.createElement('option')
+    option[opsi].value = opsi;
+    option[opsi].innerHTML = nodesMarker[opsi];
+    titikAwal.appendChild(option[opsi]);
+    // console.log(nodesMarker[opsi]);
+}
+
+for(let opsi in nodesMarker){
+    option[opsi] = document.createElement('option')
+    option[opsi].value = opsi;
+    option[opsi].innerHTML = nodesMarker[opsi];
+    titikAkhir.appendChild(option[opsi]); 
+    // console.log(nodesMarker[opsi]);
+}
+const filter_btn = document.querySelector('#filter');
+
+
+filter_btn.addEventListener('click', (event) => {
+    console.log("halo");
+	event.preventDefault()
+});

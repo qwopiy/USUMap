@@ -57,7 +57,13 @@ export class Djikstra {
         antrian.insert([[titikAwal], 0]);
 
         while(antrian.length != 0){
-            let jalurSeluruhnya = antrian.heap[0][0];
+            let jalurSeluruhnya = [];
+            try {
+                jalurSeluruhnya = antrian.heap[0][0];
+            } catch (error) {
+                console.log(error);
+            }
+            console.log(antrian.heap[0][0]);
             let titikSekarang = jalurSeluruhnya.slice(-1)[0];
             let jarakSekarang = antrian.heap[0][1];
             antrian.extractMin();
