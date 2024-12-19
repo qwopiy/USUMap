@@ -20,7 +20,9 @@
 </head>
 <body>
     <div class="container">
+
         <div id="map"></div>
+
         <div class="form-container">
           <div class="form-style">
             <form>
@@ -39,13 +41,18 @@
                     <select class="form-control selectpicker" id="titikAkhir" data-live-search="true"></select>
                 </div>
                 <div class="mb-3">
-                    <label for="filter" class="form-label">Filter</label>
-                    <select class="form-control selectpicker" id="select-country"  data-live-search="true"></select>
+                    <label for="filter" class="form-label">Filter</label><br>
+                    <!-- <select class="form-control selectpicker" id="select-country"  data-live-search="true"></select> -->
+                    <!-- <button id="filter" class="btn btn-light">Tutup jalan</button> -->
+                    <button id="filter" class="filterbtn btn btn-light">Tutup jalan</button>
+
                 </div>                    
             </form>
           </div>
-          <a href="index.html" class="btn btn-light">Kembali</a>
-          <button id="submit" class="btn btn-light" type="submit">Submit</button>
+        <div class="tombol">
+            <a href="index.html" class="btn btn-light">Kembali</a>
+            <button id="submit" class="btn btn-light" type="submit">Submit</button>
+        </div>
         </div>
     </div>
 

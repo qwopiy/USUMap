@@ -217,7 +217,7 @@ for(let opsi in nodesMarker){
     option[opsi].value = opsi;
     option[opsi].innerHTML = nodesMarker[opsi];
     titikAwal.appendChild(option[opsi]);
-    console.log(nodesMarker[opsi]);
+    // console.log(nodesMarker[opsi]);
 }
 
 for(let opsi in nodesMarker){
@@ -225,5 +225,12 @@ for(let opsi in nodesMarker){
     option[opsi].value = opsi;
     option[opsi].innerHTML = nodesMarker[opsi];
     titikAkhir.appendChild(option[opsi]); 
-    console.log(nodesMarker[opsi]);
+    // console.log(nodesMarker[opsi]);
 }
+const filter_btn = document.querySelector('#filter');
+
+
+filter_btn.addEventListener('click', (event) => {
+    console.log("halo");
+	event.preventDefault()
+});
