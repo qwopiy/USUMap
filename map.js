@@ -6,6 +6,11 @@ let map = L.map('map', {
     zoom: 16
 });
 
+map.setMaxBounds([
+    [3.569742, 98.650318],
+    [3.555137, 98.661782]
+]);
+
 // data kordinat titik
 const nodes = [
     [0,0],                  // 0
