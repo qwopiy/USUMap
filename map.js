@@ -2,9 +2,14 @@ import { Djikstra } from './function/djikstra.js';
 
 let djikstra = new Djikstra();
 let map = L.map('map', {
-    center: [3.55800, 98.65900],
+    center: [3.56100, 98.65600],
     zoom: 16
 });
+
+map.setMaxBounds([
+    [3.569742, 98.650318],
+    [3.555137, 98.661782]
+]);
 
 // data kordinat titik
 const nodes = [
@@ -46,7 +51,7 @@ const nodes = [
     [98.653038, 3.562483],  // 35
     [98.654822, 3.562528],  // 36
     [98.656019, 3.562586],  // 37
-    [98.656019, 3.562586],  // 38
+    [98.656797, 3.562648],  // 38
     [98.659833, 3.562393],  // 39
     [98.660292, 3.562409],  // 40
     [98.654832, 3.561950],  // 41
@@ -158,11 +163,11 @@ let endIcon = L.icon({
     iconAnchor: [15, 38]
 });
 
-let roadBlock = L.icon({
-    iconUrl: 'asset/roadBlock.png',
-    iconSize: [20, 32],
-    iconAnchor: [15, 38]
-});
+//debug marker semua
+// for (let i = 1; i < nodes.length; i++) {
+//     L.marker(nodes[i].reverse(), {title: nodesMarker[i]}).addTo(map).bindPopup(nodesMarker[i]);
+//     nodes[i].reverse();
+// }
 
 let lines;
 let markers = [];
@@ -173,20 +178,22 @@ function road(arr){
     
     markers[0] = L.marker(nodes[arr[0]].reverse(), {icon: startIcon, title: nodesMarker[arr[0]]});
     markers[0].addTo(map);
-    markers[0].bindPopup(nodesMarker[arr[0]]);
+    markers[0].bindPopup("<h5>" + nodesMarker[arr[0]] + "</h5>");
     nodes[arr[0]].reverse();
 
 
     markers[length-1] = L.marker(nodes[arr[length-1]].reverse(), {icon: endIcon, title: nodesMarker[arr[length-1]]});
     markers[length-1].addTo(map);
-    markers[length-1].bindPopup(nodesMarker[arr[length-1]]);
+    markers[length-1].bindPopup("<h5>" + nodesMarker[arr[length-1]] + "</h5>");
     nodes[arr[length-1]].reverse();
     
     // marker tiap node
-    for (let i = 1; i < length-2; i++) {
+    for (let i = 1; i < length-1; i++) {
         markers[i] = L.circleMarker(nodes[arr[i]].reverse(), {color: "#FFAD00", fill: true, title: nodesMarker[arr[i]]});
+        // markers[i].setContent('<button id="filter" class="btn btn-light">Tutup jalan</button>')
         markers[i].addTo(map);
-        markers[i].bindPopup(nodesMarker[arr[i]]);
+        // markers[i].bindPopup(nodesMarker[arr[i]]);
+        markers[i].bindPopup("<h5> Simpang ke " + i + "</h5>");
         nodes[arr[i]].reverse();
     }
     
@@ -195,21 +202,19 @@ function road(arr){
             "type": "LineString",
             "coordinates": [nodes[arr[i]], nodes[arr[i+1]]]
         });
-        console.log(nodes[arr[i]], nodes[arr[i+1]]);
+        // console.log(nodes[arr[i]], nodes[arr[i+1]]);
     }
     lines = L.geoJSON(myLines).addTo(map);
-    console.log((nodes[arr[length-1]][1] + nodes[arr[0]][1])/2);
-    console.log((nodes[arr[length-1]][0] + nodes[arr[0]][0])/2);
+    // console.log((nodes[arr[length-1]][1] + nodes[arr[0]][1])/2);
+    // console.log((nodes[arr[length-1]][0] + nodes[arr[0]][0])/2);
     map.panTo([(nodes[arr[length-1]][1] + nodes[arr[0]][1])/2, (nodes[arr[length-1]][0] + nodes[arr[0]][0])/2]);
 }
 
 let submit = document.getElementById('submit');
 let titikAwal = document.getElementById('titikAwal');
 let titikAkhir = document.getElementById('titikAkhir');
-// let tutupJalan = document.getElementById('tutupJalan');
-let filter = [];
-let option = [];
-// let jalan
+let tutupJalan =  document.getElementById('tutupJalan');
+let filter = new Array();
 
 submit.addEventListener('click', function(){
     if (lines !== undefined) {
@@ -218,22 +223,30 @@ submit.addEventListener('click', function(){
             marker.remove();
         });
     }
+
     let awal = titikAwal.value;
     let akhir = titikAkhir.value;
-    // console.log(awal, akhir);
-    let array = djikstra.djikstra(94, awal, akhir,filter);
-    // let array = djikstra.djikstra(94, 1, ,filter);
-    
-    console.log(array);
+
+    if(tutupJalan.value == ''){
+        filter = [];
+    }else{
+        filter = tutupJalan.value;
+        filter = filter.split(',');
+        filter = filter.map(Number);
+    }
+
+    console.log(awal, akhir, filter);
+    let array = djikstra.djikstra(94, awal, akhir, filter);
+    // let array = djikstra.djikstra(94, 1, 34, filter);
+    // console.log(array);
     setTimeout(() => {
         road(array);
     }, 1000);
 });
 
 let myLines = [];
-// let array = djikstra.djikstra(94, 49, 12);
-// map.on('click', onMapClick);
-
+let filter = [];
+let option = [];
 
 for(let opsi in nodesMarker){
     option[opsi] = document.createElement('option')
@@ -250,5 +263,4 @@ for(let opsi in nodesMarker){
     titikAkhir.appendChild(option[opsi]); 
     // console.log(nodesMarker[opsi]);
 }
-const filter_btn = document.querySelector('#filter');
-
+// const filter_btn = document.querySelector('#filter');
