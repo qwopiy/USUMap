@@ -206,6 +206,10 @@ function road(arr){
 let submit = document.getElementById('submit');
 let titikAwal = document.getElementById('titikAwal');
 let titikAkhir = document.getElementById('titikAkhir');
+// let tutupJalan = document.getElementById('tutupJalan');
+let filter = [];
+let option = [];
+// let jalan
 
 submit.addEventListener('click', function(){
     if (lines !== undefined) {
@@ -214,11 +218,12 @@ submit.addEventListener('click', function(){
             marker.remove();
         });
     }
-    // let awal = titikAwal.value;
-    // let akhir = titikAkhir.value;
+    let awal = titikAwal.value;
+    let akhir = titikAkhir.value;
     // console.log(awal, akhir);
-    // let array = djikstra.djikstra(94, awal, akhir);
-    let array = djikstra.djikstra(94, 1, 34);
+    let array = djikstra.djikstra(94, awal, akhir,filter);
+    // let array = djikstra.djikstra(94, 1, ,filter);
+    
     console.log(array);
     setTimeout(() => {
         road(array);
@@ -229,14 +234,13 @@ let myLines = [];
 // let array = djikstra.djikstra(94, 49, 12);
 // map.on('click', onMapClick);
 
-let option = [];
 
 for(let opsi in nodesMarker){
     option[opsi] = document.createElement('option')
     option[opsi].value = opsi;
     option[opsi].innerHTML = nodesMarker[opsi];
     titikAwal.appendChild(option[opsi]);
-    // console.log(nodesMarker[opsi]);
+    console.log(nodesMarker[opsi]);
 }
 
 for(let opsi in nodesMarker){
@@ -248,8 +252,3 @@ for(let opsi in nodesMarker){
 }
 const filter_btn = document.querySelector('#filter');
 
-
-filter_btn.addEventListener('click', (event) => {
-    console.log("halo");
-	event.preventDefault()
-});
